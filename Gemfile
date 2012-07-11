@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails',         '3.2.2'
+gem 'rails',         '3.2.6'
 gem 'pg'
 gem 'resque',        '1.20.0', :require => "resque/server"
 gem 'git'
@@ -12,6 +12,7 @@ gem 'hpricot'
 gem 'unicorn'
 gem 'devise'
 gem 'cancan'
+gem 'whenever', require: false
 
 group :development do
   gem 'capistrano'
