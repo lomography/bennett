@@ -39,7 +39,7 @@ class Project < ActiveRecord::Base
   end
 
   def busy_or_pending?
-    last_build.busy? || last_build.pending?
+    last_build.present? && (last_build.busy? || last_build.pending?)
   end
 
   def unique_command_positions
