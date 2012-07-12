@@ -31,9 +31,12 @@ class Project < ActiveRecord::Base
   end
 
   def finished_status
-    never_built? ? :no_builds : last_finished_build.status
+    last_finished_build.try :status
   end
-  
+  def has_finished_status?
+    finished_status.present?
+  end
+
   def never_built?
     builds.none?
   end
