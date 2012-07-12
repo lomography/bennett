@@ -13,6 +13,7 @@ gem 'unicorn'
 gem 'devise'
 gem 'cancan'
 gem 'whenever', require: false
+gem 'capistrano-resque'
 
 group :development do
   gem 'capistrano'
