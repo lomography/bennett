@@ -85,11 +85,11 @@ class Build < ActiveRecord::Base
         result.skipped
       else
         result.busy
-        commands = [ 'unset RAILS_ENV RUBYOPT BUNDLE_GEMFILE BUNDLE_BIN_PATH GEM_HOME RBENV_DIR GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE',
-                     '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"',
-                     '[[ -s "$HOME/.rbenv/bin/rbenv" || -s "/usr/local/bin/rbenv" ]] && export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:$PATH" && eval "$(rbenv init -)"',
-                     "cd #{project.folder_path}",
-                     "#{result.command.command}" ]
+        commands = [ 'bash -l -c "unset RAILS_ENV RUBYOPT BUNDLE_GEMFILE BUNDLE_BIN_PATH GEM_HOME RBENV_DIR GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE"',
+                     'bash -l -c "[[ -s \"$HOME/.rvm/scripts/rvm\" ]] && source \"$HOME/.rvm/scripts/rvm\""',
+                     'bash -l -c "[[ -s \"$HOME/.rbenv/bin/rbenv\" || -s \"/usr/local/bin/rbenv\" ]] && export PATH=\"$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:$PATH\" && eval \"$(rbenv init -)\""',
+                     "bash -l -c \"cd #{project.folder_path}\"",
+                     "bash -l -c \"#{result.command.command}\"" ]
         res = system "#{commands.join(';')} > #{result.log_path} 2>&1"
         if res
           result.passed
