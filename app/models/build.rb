@@ -90,7 +90,8 @@ class Build < ActiveRecord::Base
                      '[[ -s "$HOME/.rbenv/bin/rbenv" || -s "/usr/local/bin/rbenv" ]] && export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:/usr/local/bin:$PATH" && eval "$(rbenv init -)"',
                      "cd #{project.folder_path}",
                      "#{result.command.command}" ]
-        res = system "#{commands.join(';')} > #{result.log_path} 2>&1"
+        cmds = commands.join(';')
+        res = system "bash -l -c '#{cmds}' > #{result.log_path} 2>&1"
         if res
           result.passed
         else
